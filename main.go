@@ -14,6 +14,9 @@ func main() {
 	godotenv.Load(".env")
 
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
 	router := chi.NewRouter()
 	router.Use(cors.Handler(cors.Options{
