@@ -48,9 +48,12 @@ func (cfg *apiConfig) handlerFeedsCreate(w http.ResponseWriter, r *http.Request,
 	}
 
 	// respond with feed and feed follow
-	respondWithJSON(w, http.StatusOK, map[string]interface{}{
-		"feed":       feed,
-		"feedFollow": feedFollow,
+	respondWithJSON(w, http.StatusOK, struct {
+		feed       Feed
+		feedFollow FeedFollow
+	}{
+		feed:       databaseFeedToFeed(feed),
+		feedFollow: databaseFeedFollowToFeedFollow(feedFollow),
 	})
 }
 
@@ -61,5 +64,5 @@ func (cfg *apiConfig) handlerFeedsGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, feeds)
+	respondWithJSON(w, http.StatusOK, databaseFeedsToFeeds(feeds))
 }

@@ -35,7 +35,7 @@ func (cfg *apiConfig) handlerFeedFollowCreate(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, feedFollow)
+	respondWithJSON(w, http.StatusOK, databaseFeedFollowToFeedFollow(feedFollow))
 }
 
 func (cfg *apiConfig) handlerFeedFollowsGet(w http.ResponseWriter, r *http.Request, user database.User) {
@@ -45,7 +45,7 @@ func (cfg *apiConfig) handlerFeedFollowsGet(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, feedFollows)
+	respondWithJSON(w, http.StatusOK, databaseFeedFollowsToFeedFollows(feedFollows))
 }
 
 func (cfg *apiConfig) handlerFeedFollowDelete(w http.ResponseWriter, r *http.Request, user database.User) {
@@ -65,5 +65,5 @@ func (cfg *apiConfig) handlerFeedFollowDelete(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, nil)
+	respondWithJSON(w, http.StatusOK, struct{}{})
 }
